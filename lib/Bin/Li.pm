@@ -1,6 +1,6 @@
 package Bin::Li ;
-our $VERSION = '0.110' ; 
-our $DATE = '2021-05-25T22:30+0900' ; 
+our $VERSION = '0.111' ; 
+our $DATE = '2021-05-25T23:10+0900' ; 
 
 =head1 NAME
 

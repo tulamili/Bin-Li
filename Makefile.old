@@ -14,7 +14,7 @@
 #     AUTHOR => [q[Toshiyuki SHIMONO (bin4tsv at gmail.com)]]
 #     BUILD_REQUIRES => {  }
 #     CONFIGURE_REQUIRES => {  }
-#     EXE_FILES => [q[scripts/expskip], q[scripts/freq], q[scripts/cat-n], q[scripts/summing], q[scripts/chars2code], q[scripts/gzpaste], q[scripts/sampler]]
+#     EXE_FILES => [q[scripts/expskip], q[scripts/freq], q[scripts/cat-n], q[scripts/summing], q[scripts/chars2code], q[scripts/gzpaste], q[scripts/sampler], q[scripts/linedigest], q[scripts/idmaker], q[scripts/uniq-c], q[scripts/wc-l], q[scripts/headomit], q[scripts/lminusl], q[scripts/alluniq], q[scripts/digitdemog], q[scripts/entrolines]]
 #     LICENSE => q[perl_5]
 #     NAME => q[Bin::Li]
 #     PREREQ_PM => {  }
@@ -58,11 +58,11 @@ DIRFILESEP = /
 DFSEP = $(DIRFILESEP)
 NAME = Bin::Li
 NAME_SYM = Bin_Li
-VERSION = 0.110
+VERSION = 0.111
 VERSION_MACRO = VERSION
-VERSION_SYM = 0_110
+VERSION_SYM = 0_111
 DEFINE_VERSION = -D$(VERSION_MACRO)=\"$(VERSION)\"
-XS_VERSION = 0.110
+XS_VERSION = 0.111
 XS_VERSION_MACRO = XS_VERSION
 XS_DEFINE_VERSION = -D$(XS_VERSION_MACRO)=\"$(XS_VERSION)\"
 INST_ARCHLIB = blib/arch
@@ -163,13 +163,22 @@ XS_FILES =
 C_FILES  = 
 O_FILES  = 
 H_FILES  = 
-MAN1PODS = scripts/cat-n \
+MAN1PODS = scripts/alluniq \
+	scripts/cat-n \
 	scripts/chars2code \
+	scripts/digitdemog \
+	scripts/entrolines \
 	scripts/expskip \
 	scripts/freq \
 	scripts/gzpaste \
+	scripts/headomit \
+	scripts/idmaker \
+	scripts/linedigest \
+	scripts/lminusl \
 	scripts/sampler \
-	scripts/summing
+	scripts/summing \
+	scripts/uniq-c \
+	scripts/wc-l
 MAN3PODS = lib/Bin/Li.pm
 
 # Where is the Config information that we are using/depend on
@@ -263,7 +272,7 @@ RCS_LABEL = rcs -Nv$(VERSION_SYM): -q
 DIST_CP = best
 DIST_DEFAULT = tardist
 DISTNAME = Bin-Li
-DISTVNAME = Bin-Li-0.110
+DISTVNAME = Bin-Li-0.111
 
 
 # --- MakeMaker macro section:
@@ -419,21 +428,39 @@ POD2MAN = $(POD2MAN_EXE)
 
 manifypods : pure_all config  \
 	lib/Bin/Li.pm \
+	scripts/alluniq \
 	scripts/cat-n \
 	scripts/chars2code \
+	scripts/digitdemog \
+	scripts/entrolines \
 	scripts/expskip \
 	scripts/freq \
 	scripts/gzpaste \
+	scripts/headomit \
+	scripts/idmaker \
+	scripts/linedigest \
+	scripts/lminusl \
 	scripts/sampler \
-	scripts/summing
+	scripts/summing \
+	scripts/uniq-c \
+	scripts/wc-l
 	$(NOECHO) $(POD2MAN) --section=$(MAN1SECTION) --perm_rw=$(PERM_RW) -u \
+	  scripts/alluniq $(INST_MAN1DIR)/alluniq.$(MAN1EXT) \
 	  scripts/cat-n $(INST_MAN1DIR)/cat-n.$(MAN1EXT) \
 	  scripts/chars2code $(INST_MAN1DIR)/chars2code.$(MAN1EXT) \
+	  scripts/digitdemog $(INST_MAN1DIR)/digitdemog.$(MAN1EXT) \
+	  scripts/entrolines $(INST_MAN1DIR)/entrolines.$(MAN1EXT) \
 	  scripts/expskip $(INST_MAN1DIR)/expskip.$(MAN1EXT) \
 	  scripts/freq $(INST_MAN1DIR)/freq.$(MAN1EXT) \
 	  scripts/gzpaste $(INST_MAN1DIR)/gzpaste.$(MAN1EXT) \
+	  scripts/headomit $(INST_MAN1DIR)/headomit.$(MAN1EXT) \
+	  scripts/idmaker $(INST_MAN1DIR)/idmaker.$(MAN1EXT) \
+	  scripts/linedigest $(INST_MAN1DIR)/linedigest.$(MAN1EXT) \
+	  scripts/lminusl $(INST_MAN1DIR)/lminusl.$(MAN1EXT) \
 	  scripts/sampler $(INST_MAN1DIR)/sampler.$(MAN1EXT) \
-	  scripts/summing $(INST_MAN1DIR)/summing.$(MAN1EXT) 
+	  scripts/summing $(INST_MAN1DIR)/summing.$(MAN1EXT) \
+	  scripts/uniq-c $(INST_MAN1DIR)/uniq-c.$(MAN1EXT) \
+	  scripts/wc-l $(INST_MAN1DIR)/wc-l.$(MAN1EXT) 
 	$(NOECHO) $(POD2MAN) --section=$(MAN3SECTION) --perm_rw=$(PERM_RW) -u \
 	  lib/Bin/Li.pm $(INST_MAN3DIR)/Bin::Li.$(MAN3EXT) 
 
@@ -445,17 +472,27 @@ manifypods : pure_all config  \
 
 # --- MakeMaker installbin section:
 
-EXE_FILES = scripts/cat-n scripts/chars2code scripts/expskip scripts/freq scripts/gzpaste scripts/sampler scripts/summing
+EXE_FILES = scripts/alluniq scripts/cat-n scripts/chars2code scripts/digitdemog scripts/entrolines scripts/expskip scripts/freq scripts/gzpaste scripts/headomit scripts/idmaker scripts/linedigest scripts/lminusl scripts/sampler scripts/summing scripts/uniq-c scripts/wc-l
 
-pure_all :: $(INST_SCRIPT)/cat-n $(INST_SCRIPT)/chars2code $(INST_SCRIPT)/expskip $(INST_SCRIPT)/freq $(INST_SCRIPT)/gzpaste $(INST_SCRIPT)/sampler $(INST_SCRIPT)/summing
+pure_all :: $(INST_SCRIPT)/alluniq $(INST_SCRIPT)/cat-n $(INST_SCRIPT)/chars2code $(INST_SCRIPT)/digitdemog $(INST_SCRIPT)/entrolines $(INST_SCRIPT)/expskip $(INST_SCRIPT)/freq $(INST_SCRIPT)/gzpaste $(INST_SCRIPT)/headomit $(INST_SCRIPT)/idmaker $(INST_SCRIPT)/linedigest $(INST_SCRIPT)/lminusl $(INST_SCRIPT)/sampler $(INST_SCRIPT)/summing $(INST_SCRIPT)/uniq-c $(INST_SCRIPT)/wc-l
 	$(NOECHO) $(NOOP)
 
 realclean ::
 	$(RM_F) \
-	  $(INST_SCRIPT)/cat-n $(INST_SCRIPT)/chars2code \
-	  $(INST_SCRIPT)/expskip $(INST_SCRIPT)/freq \
-	  $(INST_SCRIPT)/gzpaste $(INST_SCRIPT)/sampler \
-	  $(INST_SCRIPT)/summing 
+	  $(INST_SCRIPT)/alluniq $(INST_SCRIPT)/cat-n \
+	  $(INST_SCRIPT)/chars2code $(INST_SCRIPT)/digitdemog \
+	  $(INST_SCRIPT)/entrolines $(INST_SCRIPT)/expskip \
+	  $(INST_SCRIPT)/freq $(INST_SCRIPT)/gzpaste \
+	  $(INST_SCRIPT)/headomit $(INST_SCRIPT)/idmaker \
+	  $(INST_SCRIPT)/linedigest $(INST_SCRIPT)/lminusl \
+	  $(INST_SCRIPT)/sampler $(INST_SCRIPT)/summing \
+	  $(INST_SCRIPT)/uniq-c $(INST_SCRIPT)/wc-l 
+
+$(INST_SCRIPT)/alluniq : scripts/alluniq $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/alluniq
+	$(CP) scripts/alluniq $(INST_SCRIPT)/alluniq
+	$(FIXIN) $(INST_SCRIPT)/alluniq
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/alluniq
 
 $(INST_SCRIPT)/cat-n : scripts/cat-n $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
 	$(NOECHO) $(RM_F) $(INST_SCRIPT)/cat-n
@@ -468,6 +505,18 @@ $(INST_SCRIPT)/chars2code : scripts/chars2code $(FIRST_MAKEFILE) $(INST_SCRIPT)$
 	$(CP) scripts/chars2code $(INST_SCRIPT)/chars2code
 	$(FIXIN) $(INST_SCRIPT)/chars2code
 	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/chars2code
+
+$(INST_SCRIPT)/digitdemog : scripts/digitdemog $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/digitdemog
+	$(CP) scripts/digitdemog $(INST_SCRIPT)/digitdemog
+	$(FIXIN) $(INST_SCRIPT)/digitdemog
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/digitdemog
+
+$(INST_SCRIPT)/entrolines : scripts/entrolines $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/entrolines
+	$(CP) scripts/entrolines $(INST_SCRIPT)/entrolines
+	$(FIXIN) $(INST_SCRIPT)/entrolines
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/entrolines
 
 $(INST_SCRIPT)/expskip : scripts/expskip $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
 	$(NOECHO) $(RM_F) $(INST_SCRIPT)/expskip
@@ -487,6 +536,30 @@ $(INST_SCRIPT)/gzpaste : scripts/gzpaste $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP
 	$(FIXIN) $(INST_SCRIPT)/gzpaste
 	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/gzpaste
 
+$(INST_SCRIPT)/headomit : scripts/headomit $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/headomit
+	$(CP) scripts/headomit $(INST_SCRIPT)/headomit
+	$(FIXIN) $(INST_SCRIPT)/headomit
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/headomit
+
+$(INST_SCRIPT)/idmaker : scripts/idmaker $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/idmaker
+	$(CP) scripts/idmaker $(INST_SCRIPT)/idmaker
+	$(FIXIN) $(INST_SCRIPT)/idmaker
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/idmaker
+
+$(INST_SCRIPT)/linedigest : scripts/linedigest $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/linedigest
+	$(CP) scripts/linedigest $(INST_SCRIPT)/linedigest
+	$(FIXIN) $(INST_SCRIPT)/linedigest
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/linedigest
+
+$(INST_SCRIPT)/lminusl : scripts/lminusl $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/lminusl
+	$(CP) scripts/lminusl $(INST_SCRIPT)/lminusl
+	$(FIXIN) $(INST_SCRIPT)/lminusl
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/lminusl
+
 $(INST_SCRIPT)/sampler : scripts/sampler $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
 	$(NOECHO) $(RM_F) $(INST_SCRIPT)/sampler
 	$(CP) scripts/sampler $(INST_SCRIPT)/sampler
@@ -498,6 +571,18 @@ $(INST_SCRIPT)/summing : scripts/summing $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP
 	$(CP) scripts/summing $(INST_SCRIPT)/summing
 	$(FIXIN) $(INST_SCRIPT)/summing
 	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/summing
+
+$(INST_SCRIPT)/uniq-c : scripts/uniq-c $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/uniq-c
+	$(CP) scripts/uniq-c $(INST_SCRIPT)/uniq-c
+	$(FIXIN) $(INST_SCRIPT)/uniq-c
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/uniq-c
+
+$(INST_SCRIPT)/wc-l : scripts/wc-l $(FIRST_MAKEFILE) $(INST_SCRIPT)$(DFSEP).exists $(INST_BIN)$(DFSEP).exists
+	$(NOECHO) $(RM_F) $(INST_SCRIPT)/wc-l
+	$(CP) scripts/wc-l $(INST_SCRIPT)/wc-l
+	$(FIXIN) $(INST_SCRIPT)/wc-l
+	-$(NOECHO) $(CHMOD) $(PERM_RWX) $(INST_SCRIPT)/wc-l
 
 
 
@@ -857,7 +942,7 @@ testdb_static test_static :: subdirs-test_static
 # --- MakeMaker ppd section:
 # Creates a PPD (Perl Package Description) for a binary distribution.
 ppd :
-	$(NOECHO) $(ECHO) '<SOFTPKG NAME="Bin-Li" VERSION="0.110">' > Bin-Li.ppd
+	$(NOECHO) $(ECHO) '<SOFTPKG NAME="Bin-Li" VERSION="0.111">' > Bin-Li.ppd
 	$(NOECHO) $(ECHO) '    <ABSTRACT></ABSTRACT>' >> Bin-Li.ppd
 	$(NOECHO) $(ECHO) '    <AUTHOR>Toshiyuki SHIMONO (bin4tsv at gmail.com)</AUTHOR>' >> Bin-Li.ppd
 	$(NOECHO) $(ECHO) '    <IMPLEMENTATION>' >> Bin-Li.ppd
