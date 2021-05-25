@@ -1,6 +1,6 @@
 package Bin::Li ;
-our $VERSION = '0.113' ; 
-our $DATE = '2021-05-26T00:50+0900' ; 
+our $VERSION = '0.114' ; 
+our $DATE = '2021-05-26T01:05+0900' ; 
 
 =encoding utf8
 
