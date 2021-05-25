@@ -11,3 +11,6 @@ Revision history for the module "Bin::Li" :
 0.111   2021-05-25T23:10+0900
         Makefile.PL で動作違いがあったので訂正。scriptsに0.100のように7個しかファイルが足されないのを計16個にした。
 
+0.112   2021-05-26T00:20+0900
+       	Failed というエラーがPAUSEから来たので対応を試みた。
+        PODの書式を整えた。
