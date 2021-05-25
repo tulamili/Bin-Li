@@ -1,0 +1,16 @@
+Changes
+INSTALL
+lib/Bin/Li.pm
+LICENSE
+Makefile.PL
+MANIFEST			This list of files
+MANIFEST.SKIP
+README
+README.md
+scripts/cat-n
+scripts/chars2code
+scripts/expskip
+scripts/freq
+scripts/gzpaste
+scripts/sampler
+scripts/summing
