@@ -1,4 +1,17 @@
+package Bin::Li ;
+our $VERSION = '0.100' ; 
+our $DATE = '2021-05-25T17:55+0900' ; 
+
+=head1 NAME
+
+Bin::Li
+
+=head1 SYNOPSIS
+
 This module "Bin::Li" provides scripts for specific functions that deals "line-recorded data".
+
+=head1 DESCRIPTION
+
 The included commands are as follows. 
 
 expskip     ; Only shows 1st, 10th, 100th, 1000th lines and so on.
@@ -10,6 +23,8 @@ summing     ; Accumulative sum will be shown while reading each line.
 gzpaste     ; Unix `paste` funciton for multiple gzipped files. 
 
 
- Copyright (c) 2021 Toshiyuki SHIMONO. All rights reserved.
- This program is free software; you can redistribute it and/or
- modify it under the same terms as Perl itself.
+=head1 SEE ALSO
+
+=cut
+
+1 ;
